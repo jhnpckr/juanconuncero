@@ -91,9 +91,7 @@ twitter.stream('statuses/filter', {follow: '19683971,2996730142'}, function(stre
           console.error(e);
         });
       } else if (data.in_reply_to_user_id == 2996730142) {
-        console.log(data.text);
         var text = data.text.replace('@juanconuncero ','');
-        console.log(text);
         https.get('https://translate.yandex.net//api/v1.5/tr.json/detect?key=' + key + '&text=' + encodeURIComponent(text), function(res) {
           res.on("data", function(detectlang) {
             var lang = JSON.parse(detectlang).lang;
