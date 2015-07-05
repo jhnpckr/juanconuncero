@@ -37,9 +37,6 @@ var sendtweet = function(tweet) {
 }
 
 var sendreply = function(tweet,status_id,screen_name) {
-  console.log(tweet);
-  console.log(status_id);
-  console.log(screen_name);
   tweet = tweet.trim();
   tweet = '@' + screen_name + ' ' + tweet;
   if (tweet.length > 140) {
@@ -51,7 +48,6 @@ var sendreply = function(tweet,status_id,screen_name) {
     twitter.post('statuses/update', {status: tweet1, in_reply_to_status_id: status_id},  function(error, tweetobj, response){
       if(error) throw error;
       console.log('Tweeted: ' + tweet1);
-      console.log(tweetobj);
       twitter.post('statuses/update', {status: tweet2, in_reply_to_status_id: status_id},  function(error, tweetobj, response){
         if(error) throw error;
         console.log('Tweeted: ' + tweet2);
