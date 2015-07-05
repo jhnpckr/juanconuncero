@@ -4,6 +4,7 @@
   "description": "my spanish friend",
   "main": "juanconuncero.js",
   "dependencies": {
+    "https": "^1.0.0",
     "twitter": "^1.2.5"
   },
   "devDependencies": {},
