@@ -116,66 +116,8 @@ twitter.stream('statuses/filter', {follow: '19683971,2996730142'}, function(stre
         });
       }
 
-      // console.log(data.text);
-      // https.get('https://translate.yandex.net//api/v1.5/tr.json/detect?key=' + key + '&text=' + encodeURIComponent(data.text), function(res) {
-      //
-      //   res.on("data", function(chunk) {
-      //     console.log(JSON.parse(chunk).lang);
-      //   });
-      //
-      // }).on('error', function(e) {
-      //   console.error(e);
-      // });
-      // stream.destroy();
     }
 
 
   });
 });
-
-
-
-
-// var tweet = "1. This text is over 140 characters. 2. This text is over 140 characters. 3. This text is over 140 characters. 4. This text is over 140 characters. 5. This text is over 140 characters."
-// if (tweet.length > 140) {
-//   var tweet1 = tweet.substr(0,137);
-//   tweet1 = tweet1.rsplit(' ', 1)[0];
-//   tweet2 = tweet.substr(tweet1.length+1);
-//   tweet1 = tweet1 + '...';
-//   tweet2 = '...' + tweet2;
-//   console.log('Tweet is: ' + tweet);
-//   console.log('Tweet 1 is: ' + tweet1);
-//   console.log('Tweet 2 is: ' + tweet2);
-// }
-//
-//
-// twitter.post('statuses/update', {status: 'hola'},  function(error, tweet, response){
-//   if(error) throw error;
-//   console.log(tweet);  // Tweet body.
-// });
-//
-//
-//
-//
-// https.get('https://translate.yandex.net//api/v1.5/tr.json/detect?key=' + key + '&text=' + encodeURIComponent(txt), function(res) {
-//
-//   res.on("data", function(chunk) {
-//     console.log(JSON.parse(chunk).lang);
-//   });
-//
-// }).on('error', function(e) {
-//   console.error(e);
-// });
-//
-// var lang = 'en-es'
-// var txt = 'What is this in Spanish?'
-//
-// https.get('https://translate.yandex.net//api/v1.5/tr.json/translate?key=' + key + "&lang=" + lang + '&text=' + encodeURIComponent(txt), function(res) {
-//
-//   res.on("data", function(chunk) {
-//     console.log(JSON.parse(chunk).text.pop());
-//   });
-//
-// }).on('error', function(e) {
-//   console.error(e);
-// });
