@@ -62,7 +62,6 @@ var sendreply = function(tweet,status_id,screen_name) {
 }
 
 twitter.stream('statuses/filter', {follow: '19683971,2996730142'}, function(stream){
-
   stream.on('data', function(data){
     if (data.hasOwnProperty('text')) {
       if (data.user.id == 19683971 && data.text.substr(0,1) != '@') {
@@ -76,13 +75,11 @@ twitter.stream('statuses/filter', {follow: '19683971,2996730142'}, function(stre
                   var tweet = JSON.parse(translation).text.pop();
                   sendtweet(tweet);
                 });
-
               }).on('error', function(e) {
                 console.error(e);
               });
             }
           });
-
         }).on('error', function(e) {
           console.error(e);
         });
@@ -96,22 +93,17 @@ twitter.stream('statuses/filter', {follow: '19683971,2996730142'}, function(stre
               https.get('https://translate.yandex.net//api/v1.5/tr.json/translate?key=' + key + "&lang=" + lang + '&text=' + encodeURIComponent(text), function(res) {
                 res.on("data", function(translation) {
                   var tweet = JSON.parse(translation).text.pop();
-                  sendreply(tweet,data.id,data.user.screen_name);
+                  sendreply(tweet,data.id_str,data.user.screen_name);
                 });
-
               }).on('error', function(e) {
                 console.error(e);
               });
             }
           });
-
         }).on('error', function(e) {
           console.error(e);
         });
       }
-
     }
-
-
   });
 });
