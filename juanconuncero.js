@@ -88,16 +88,28 @@ twitter.stream('statuses/filter', {follow: '19683971,2996730142'}, function(stre
         https.get('https://translate.yandex.net//api/v1.5/tr.json/detect?key=' + key + '&text=' + encodeURIComponent(text), function(res) {
           res.on("data", function(detectlang) {
             var lang = JSON.parse(detectlang).lang;
-            if (lang != 'es' && lang != '') {
-              lang += '-es';
-              https.get('https://translate.yandex.net//api/v1.5/tr.json/translate?key=' + key + "&lang=" + lang + '&text=' + encodeURIComponent(text), function(res) {
-                res.on("data", function(translation) {
-                  var tweet = JSON.parse(translation).text.pop();
-                  sendreply(tweet,data.id_str,data.user.screen_name);
+            if (lang != '') {
+              if (lang == 'es') {
+                lang = 'es-en';
+                https.get('https://translate.yandex.net//api/v1.5/tr.json/translate?key=' + key + "&lang=" + lang + '&text=' + encodeURIComponent(text), function(res) {
+                  res.on("data", function(translation) {
+                    var tweet = JSON.parse(translation).text.pop();
+                    sendreply(tweet,data.id_str,data.user.screen_name);
+                  });
+                }).on('error', function(e) {
+                  console.error(e);
                 });
-              }).on('error', function(e) {
-                console.error(e);
-              });
+              } else {
+                lang += '-es';
+                https.get('https://translate.yandex.net//api/v1.5/tr.json/translate?key=' + key + "&lang=" + lang + '&text=' + encodeURIComponent(text), function(res) {
+                  res.on("data", function(translation) {
+                    var tweet = JSON.parse(translation).text.pop();
+                    sendreply(tweet,data.id_str,data.user.screen_name);
+                  });
+                }).on('error', function(e) {
+                  console.error(e);
+                });
+              }
             }
           });
         }).on('error', function(e) {
