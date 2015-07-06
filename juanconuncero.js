@@ -48,7 +48,7 @@ var sendreply = function(tweet,status_id,screen_name) {
     twitter.post('statuses/update', {status: tweet1, in_reply_to_status_id: status_id},  function(error, tweetobj, response){
       if(error) throw error;
       console.log('Tweeted: ' + tweet1);
-      twitter.post('statuses/update', {status: tweet2, in_reply_to_status_id: status_id},  function(error, tweetobj, response){
+      twitter.post('statuses/update', {status: tweet2, in_reply_to_status_id: tweetobj.id_str},  function(error, tweetobj, response){
         if(error) throw error;
         console.log('Tweeted: ' + tweet2);
       });
