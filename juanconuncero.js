@@ -1,3 +1,7 @@
+if(!process.env.CONSUMER_KEY_J229) {
+  var env = require('./env.js')
+}
+
 var twit = require('twitter'),
     twitter = new twit({
       consumer_key: process.env.CONSUMER_KEY,
@@ -6,7 +10,15 @@ var twit = require('twitter'),
       access_token_secret: process.env.ACCESS_TOKEN_SECRET
     }),
     https = require('https'),
-    key = process.env.YANDEX_API_KEY;
+    key = process.env.YANDEX_API_KEY,
+    twitter_j229 = new twit({
+      consumer_key: process.env.CONSUMER_KEY_J229,
+      consumer_secret: process.env.CONSUMER_SECRET_J229,
+      access_token_key: process.env.ACCESS_TOKEN_KEY_J229,
+      access_token_secret: process.env.ACCESS_TOKEN_SECRET_J229
+    }),
+    Xray = require("x-ray"),
+    xray = new Xray();
 
 String.prototype.rsplit = function(sep, maxsplit) {
     var split = this.split(sep);
@@ -119,3 +131,36 @@ twitter.stream('statuses/filter', {follow: '19683971,2996730142'}, function(stre
     }
   });
 });
+
+var latestthread = 0;
+
+setInterval(function(){
+  xray('http://drownedinsound.com/community/boards/social', '#topics tr .description',[{
+    title: 'b a',
+    user: 'small a',
+    content: 'b @title',
+    url: 'b a@href'
+  }])(function(err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      var datalength = data.length;
+      var newlatestthread = latestthread;
+      for (var i = datalength - 1; i >= 0; i--) {
+        var titleofthread = data[i].title.replace(/(\r\n|\n|\r)/gm," ");
+        var threadnumber = data[i].url.substr(data[i].url.lastIndexOf('/') + 1)
+        newlatestthread = Math.max(newlatestthread,threadnumber)
+        if (latestthread > 0 && data[i].user == 'Jordan_229_2' && !(data[i].hasOwnProperty('content')) && threadnumber > latestthread && titleofthread.length <= 140) {
+          var tweet = titleofthread;
+          twitter_j229.post('statuses/update', {status: tweet},  function(error, tweetobj, response){
+            if(error) throw error;
+            console.log('Tweeted: ' + tweet);
+          });
+          console.log(titleofthread);
+        }
+      }
+      latestthread = newlatestthread;
+      console.log('latestthread: ' + latestthread);
+    }
+  })
+},30000)

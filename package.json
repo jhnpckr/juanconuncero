@@ -5,7 +5,8 @@
   "main": "juanconuncero.js",
   "dependencies": {
     "https": "^1.0.0",
-    "twitter": "^1.2.5"
+    "twitter": "^1.2.5",
+    "x-ray": "^2.0.2"
   },
   "devDependencies": {},
   "scripts": {
