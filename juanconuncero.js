@@ -2,6 +2,8 @@ if(!process.env.CONSUMER_KEY_J229) {
   var env = require('./env.js')
 }
 
+console.log("I'm working");
+
 var twit = require('twitter'),
     twitter = new twit({
       consumer_key: process.env.CONSUMER_KEY,
