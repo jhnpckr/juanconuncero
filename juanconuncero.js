@@ -79,12 +79,12 @@ twitter.stream('statuses/filter', {follow: '19683971,2996730142'}, function(stre
   stream.on('data', function(data){
     if (data.hasOwnProperty('text')) {
       if (data.user.id == 19683971 && data.text.substr(0,1) != '@') {
-        https.get('https://translate.yandex.net//api/v1.5/tr.json/detect?key=' + key + '&text=' + encodeURIComponent(data.text), function(res) {
+        https.get('https://translate.yandex.net/api/v1.5/tr.json/detect?key=' + key + '&text=' + encodeURIComponent(data.text), function(res) {
           res.on("data", function(detectlang) {
             var lang = JSON.parse(detectlang).lang;
             if (lang != 'es' && lang != '') {
               lang += '-es';
-              https.get('https://translate.yandex.net//api/v1.5/tr.json/translate?key=' + key + "&lang=" + lang + '&text=' + encodeURIComponent(data.text), function(res) {
+              https.get('https://translate.yandex.net/api/v1.5/tr.json/translate?key=' + key + "&lang=" + lang + '&text=' + encodeURIComponent(data.text), function(res) {
                 res.on("data", function(translation) {
                   var tweet = JSON.parse(translation).text.pop();
                   sendtweet(tweet);
@@ -99,13 +99,13 @@ twitter.stream('statuses/filter', {follow: '19683971,2996730142'}, function(stre
         });
       } else if (data.in_reply_to_user_id == 2996730142 && data.user.id != 2996730142) {
         var text = data.text.replace('@juanconuncero ','');
-        https.get('https://translate.yandex.net//api/v1.5/tr.json/detect?key=' + key + '&text=' + encodeURIComponent(text), function(res) {
+        https.get('https://translate.yandex.net/api/v1.5/tr.json/detect?key=' + key + '&text=' + encodeURIComponent(text), function(res) {
           res.on("data", function(detectlang) {
             var lang = JSON.parse(detectlang).lang;
             if (lang != '') {
               if (lang == 'es') {
                 lang = 'es-en';
-                https.get('https://translate.yandex.net//api/v1.5/tr.json/translate?key=' + key + "&lang=" + lang + '&text=' + encodeURIComponent(text), function(res) {
+                https.get('https://translate.yandex.net/api/v1.5/tr.json/translate?key=' + key + "&lang=" + lang + '&text=' + encodeURIComponent(text), function(res) {
                   res.on("data", function(translation) {
                     var tweet = JSON.parse(translation).text.pop();
                     sendreply(tweet,data.id_str,data.user.screen_name);
@@ -115,7 +115,7 @@ twitter.stream('statuses/filter', {follow: '19683971,2996730142'}, function(stre
                 });
               } else {
                 lang += '-es';
-                https.get('https://translate.yandex.net//api/v1.5/tr.json/translate?key=' + key + "&lang=" + lang + '&text=' + encodeURIComponent(text), function(res) {
+                https.get('https://translate.yandex.net/api/v1.5/tr.json/translate?key=' + key + "&lang=" + lang + '&text=' + encodeURIComponent(text), function(res) {
                   res.on("data", function(translation) {
                     var tweet = JSON.parse(translation).text.pop();
                     sendreply(tweet,data.id_str,data.user.screen_name);
