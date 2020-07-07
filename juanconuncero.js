@@ -133,7 +133,6 @@ twitter.stream('statuses/filter', {follow: '19683971,2996730142'}, function(stre
     }
   });
 });
-
 /*
 var latestthread = 0;
 
